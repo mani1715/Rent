@@ -76,7 +76,7 @@ export default function ListingDetailPage() {
                 />
                 <Badge
                   className="absolute top-4 left-4 text-sm px-3 py-1"
-                  style={{ backgroundColor: getTypeColor(), color: 'white' }}
+                  style={{ backgroundColor: getTypeColor(listing.type), color: 'white' }}
                   data-testid="listing-detail-type-badge"
                 >
                   {listing.type.toUpperCase()}
