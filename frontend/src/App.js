@@ -4,8 +4,8 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import LandingPage from "@/pages/LandingPage";
 import ListingsPage from "@/pages/ListingsPage";
-import ListingDetailPage from "@/pages/ListingDetailPage";
-import AddListingPage from "@/pages/AddListingPage";
+// import ListingDetailPage from "@/pages/ListingDetailPage";
+// import AddListingPage from "@/pages/AddListingPage";
 import FavoritesPage from "@/pages/FavoritesPage";
 import HowItWorksPage from "@/pages/HowItWorksPage";
 
