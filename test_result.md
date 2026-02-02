@@ -123,137 +123,113 @@ user_problem_statement: |
   - Security: Login required, role-based access, JWT tokens
 
 frontend:
-  - task: "How It Works page route integration"
+  - task: "Login and Register pages"
     implemented: true
-    working: true
-    file: "frontend/src/App.js"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added /how-it-works route to App.js. Page already existed but wasn't accessible via routing."
-
-  - task: "Skeleton loaders in ListingsPage"
-    implemented: true
-    working: true
-    file: "frontend/src/pages/ListingsPage.jsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added skeleton loaders with 800ms simulated loading time for better UX"
-
-  - task: "Skeleton loaders in FavoritesPage"
-    implemented: true
-    working: true
-    file: "frontend/src/pages/FavoritesPage.jsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Added skeleton loaders with 600ms simulated loading time"
-
-  - task: "Landing page with hero search"
-    implemented: true
-    working: true
-    file: "frontend/src/pages/LandingPage.jsx"
+    working: "NA"
+    file: "frontend/src/pages/LoginPage.jsx, RegisterPage.jsx"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: true
+      - working: "NA"
         agent: "main"
-        comment: "Complete with hero section, search, property types, featured listings, stats, How It Works preview"
+        comment: "Complete auth pages with JWT integration, proper error handling, redirects to role selection"
 
-  - task: "Listings page with search and filters"
+  - task: "Role Selection page"
     implemented: true
-    working: true
+    working: "NA"
+    file: "frontend/src/pages/RoleSelectionPage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "One-time role selection (OWNER/CUSTOMER) with visual cards, permanent choice warning"
+
+  - task: "AuthContext with JWT management"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/contexts/AuthContext.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Token storage, axios headers, register/login/logout/selectRole functions, auth state"
+
+  - task: "Owner Dashboard"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/OwnerDashboard.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Fetches owner's listings from backend, shows stats, profile alert, listing management"
+
+  - task: "Owner Profile form"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/OwnerProfilePage.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Contact number and description fields, POST to /api/owner/profile"
+
+  - task: "Add Listing form with Google Maps"
+    implemented: true
+    working: "NA"
+    file: "frontend/src/pages/AddListingPageNew.jsx"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "Address input, latitude/longitude fields, auto-generates Google Maps link, posts to backend"
+
+  - task: "Listings page (backend integration)"
+    implemented: true
+    working: "NA"
     file: "frontend/src/pages/ListingsPage.jsx"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: true
+      - working: "NA"
         agent: "main"
-        comment: "Complete with filters (type, duration, mode, price), search functionality, mobile-responsive"
+        comment: "Fetches listings from /api/listings, filters, search, displays all owner listings for customers"
 
-  - task: "Listing detail page with all sections"
+  - task: "Listing Detail page with reviews"
     implemented: true
-    working: true
+    working: "NA"
     file: "frontend/src/pages/ListingDetailPage.jsx"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: true
+      - working: "NA"
         agent: "main"
-        comment: "Includes carousel, owner profile, calendar, amenities, reviews, similar listings, map preview"
+        comment: "Property details, owner info, reviews display, review submission form (POST /api/reviews), Open in Google Maps button"
 
-  - task: "Add listing multi-step form"
+  - task: "Protected routes with role checks"
     implemented: true
-    working: true
-    file: "frontend/src/pages/AddListingPage.jsx"
+    working: "NA"
+    file: "frontend/src/App.js, components/ProtectedRoute.jsx"
     stuck_count: 0
     priority: "high"
     needs_retesting: true
     status_history:
-      - working: true
+      - working: "NA"
         agent: "main"
-        comment: "6-step form: Property type & mode, Basic info, Property details, Description & features, Photo upload, Review & publish"
-
-  - task: "Favorites page with localStorage"
-    implemented: true
-    working: true
-    file: "frontend/src/pages/FavoritesPage.jsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Full localStorage integration with real-time updates"
-
-  - task: "Listing cards component"
-    implemented: true
-    working: true
-    file: "frontend/src/components/ListingCard.jsx"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Includes image, price, type badge, location, favorite button, beds/baths/size info"
-
-  - task: "15 mock listings data"
-    implemented: true
-    working: true
-    file: "frontend/src/data/mockListings.js"
-    stuck_count: 0
-    priority: "medium"
-    needs_retesting: false
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "15 listings with rooms, houses, lodges. Includes reviews, verification, availability"
-
-  - task: "Design consistency (no gradients, proper colors)"
-    implemented: true
-    working: true
-    file: "multiple files"
-    stuck_count: 0
-    priority: "high"
-    needs_retesting: true
-    status_history:
-      - working: true
-        agent: "main"
-        comment: "Verified no gradients in codebase. Using correct color palette throughout. Rounded cards with soft shadows."
+        comment: "Routes protected by authentication, role-based access (requireRole prop)"
 
 backend:
   - task: "Basic API setup"
