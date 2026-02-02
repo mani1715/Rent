@@ -49,39 +49,82 @@ export default function ListingDetailPage() {
     }
   };
 
+  const handleShare = () => {
+    if (navigator.share) {
+      navigator.share({
+        title: listing.title,
+        text: listing.description,
+        url: window.location.href
+      });
+    } else {
+      navigator.clipboard.writeText(window.location.href);
+      alert('Link copied to clipboard!');
+    }
+  };
+
   const typeColors = { room: '#2563EB', house: '#10B981', lodge: '#1F2937' };
   const badgeColor = typeColors[listing.type] || '#1F2937';
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: '#F9FAFB' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Button variant="ghost" onClick={() => navigate(-1)} className="mb-6" data-testid="back-button">
-          <ArrowLeft className="h-5 w-5 mr-2" />
-          Back to Listings
-        </Button>
+        <div className="flex items-center justify-between mb-6">
+          <Button variant="ghost" onClick={() => navigate(-1)} data-testid="back-button">
+            <ArrowLeft className="h-5 w-5 mr-2" />
+            Back to Listings
+          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={handleShare}
+              data-testid="share-button"
+            >
+              <Share2 className="h-5 w-5" />
+            </Button>
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleFavorite}
+              data-testid="listing-detail-favorite-button"
+            >
+              <Heart className={`h-5 w-5 ${favorite ? 'fill-red-500 text-red-500' : ''}`} />
+            </Button>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <ImageCarousel images={listing.images} title={listing.title} />
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-8">
           <div className="lg:col-span-2 space-y-6">
-            <Card className="overflow-hidden">
-              <div className="relative">
-                <img src={listing.images[0]} alt={listing.title} className="w-full h-96 object-cover" data-testid="listing-detail-image" />
-                <Badge className="absolute top-4 left-4 text-sm px-3 py-1" style={{ backgroundColor: badgeColor, color: 'white' }} data-testid="listing-detail-type-badge">
-                  {listing.type.toUpperCase()}
-                </Badge>
-              </div>
-
+            <Card>
               <CardContent className="p-6">
                 <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h1 className="text-3xl font-bold mb-2" style={{ color: '#1F2937' }} data-testid="listing-detail-title">{listing.title}</h1>
-                    <div className="flex items-center text-gray-600">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <h1 className="text-3xl font-bold" style={{ color: '#1F2937' }} data-testid="listing-detail-title">
+                        {listing.title}
+                      </h1>
+                      {listing.verified && (
+                        <Badge style={{ backgroundColor: '#10B981', color: 'white' }}>
+                          Verified
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="flex items-center text-gray-600 mb-3">
                       <MapPin className="h-5 w-5 mr-2" />
                       <span data-testid="listing-detail-location">{listing.location}</span>
                     </div>
+                    <Badge style={{ backgroundColor: badgeColor, color: 'white' }} data-testid="listing-detail-type-badge">
+                      {listing.type.toUpperCase()}
+                    </Badge>
                   </div>
-                  <button onClick={handleFavorite} className="p-3 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors" data-testid="listing-detail-favorite-button">
-                    <Heart className={`h-6 w-6 ${favorite ? 'fill-red-500 text-red-500' : 'text-gray-600'}`} />
-                  </button>
+                  <div className="text-right">
+                    <div className="text-4xl font-bold" style={{ color: '#2563EB' }} data-testid="listing-detail-price">
+                      ${listing.price}
+                    </div>
+                    <div className="text-gray-600">/ {listing.duration}</div>
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-6 py-4 border-y border-gray-200 mb-6">
