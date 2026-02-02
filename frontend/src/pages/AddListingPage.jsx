@@ -486,7 +486,7 @@ export default function AddListingPage() {
             </Button>
           )}
 
-          {step < 4 ? (
+          {step < 6 ? (
             <Button
               onClick={() => setStep(step + 1)}
               disabled={!canProceed()}
@@ -500,13 +500,12 @@ export default function AddListingPage() {
           ) : (
             <Button
               onClick={handleSubmit}
-              disabled={!canProceed()}
               style={{ backgroundColor: '#10B981', color: 'white' }}
               className="ml-auto"
               data-testid="submit-listing-button"
             >
               <Check className="h-5 w-5 mr-2" />
-              Submit Listing
+              Publish Listing
             </Button>
           )}
         </div>
