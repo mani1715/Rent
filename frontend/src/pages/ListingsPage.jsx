@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { mockListings } from '@/data/mockListings';
+import axios from 'axios';
 import { ListingCard } from '@/components/ListingCard';
 import { FilterPanel } from '@/components/FilterPanel';
 import { Button } from '@/components/ui/button';
 import { SlidersHorizontal } from 'lucide-react';
 import { SkeletonList } from '@/components/SkeletonLoader';
 
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
+
 export default function ListingsPage() {
   const [searchParams] = useSearchParams();
   const [showMobileFilters, setShowMobileFilters] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [listings, setListings] = useState([]);
   const [filters, setFilters] = useState({
     types: [],
     duration: 'all',
@@ -20,51 +23,38 @@ export default function ListingsPage() {
   });
 
   useEffect(() => {
-    const type = searchParams.get('type');
-    const search = searchParams.get('search');
-    
-    if (type) {
-      setFilters(prev => ({ ...prev, types: [type] }));
-    }
-    
-    if (search) {
-      // Search is handled in the filtering logic
-    }
+    fetchListings();
+  }, [searchParams, filters]);
 
-    // Simulate loading for skeleton
+  const fetchListings = async () => {
     setLoading(true);
-    const timer = setTimeout(() => {
+    try {
+      const type = searchParams.get('type');
+      const search = searchParams.get('search');
+      
+      // Build query params
+      const params = new URLSearchParams();
+      if (type) params.append('type', type);
+      if (search) params.append('search', search);
+      if (filters.minPrice > 0) params.append('minPrice', filters.minPrice);
+      if (filters.maxPrice < 5000) params.append('maxPrice', filters.maxPrice);
+
+      const response = await axios.get(`${API_URL}/api/listings?${params.toString()}`);
+      
+      if (response.data.success) {
+        setListings(response.data.listings);
+      }
+    } catch (error) {
+      console.error('Error fetching listings:', error);
+    } finally {
       setLoading(false);
-    }, 800);
+    }
+  };
 
-    return () => clearTimeout(timer);
-  }, [searchParams]);
-
-  const filteredListings = mockListings.filter(listing => {
-    const search = searchParams.get('search')?.toLowerCase() || '';
-    
+  const filteredListings = listings.filter(listing => {
     if (filters.types.length > 0 && !filters.types.includes(listing.type)) {
       return false;
     }
-    
-    if (filters.duration !== 'all' && listing.duration !== filters.duration) {
-      return false;
-    }
-    
-    if (filters.mode !== 'all' && listing.mode !== filters.mode) {
-      return false;
-    }
-    
-    if (listing.price < filters.minPrice || listing.price > filters.maxPrice) {
-      return false;
-    }
-    
-    if (search && !listing.title.toLowerCase().includes(search) && 
-        !listing.location.toLowerCase().includes(search) &&
-        !listing.type.toLowerCase().includes(search)) {
-      return false;
-    }
-    
     return true;
   });
 
