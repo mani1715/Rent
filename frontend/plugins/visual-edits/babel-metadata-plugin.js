@@ -970,17 +970,18 @@ const babelMetadataPlugin = ({ types: t }) => {
       }
     } else if (t.isMemberExpression(arrayNode)) {
       // Handle cases like data.items.map(...)
-      const memberInfo = analyzeMemberExpression(
-        callExprParent.get("callee.object"),
-        state
-      );
-      if (memberInfo) {
-        arrayVar = memberInfo.varName;
-        arrayFile = memberInfo.file || null;
-        absFile = memberInfo.absFile || null;
-        arrayLine = memberInfo.line || null;
-        // Array within object is more complex, mark as not editable for now
-        isEditable = false;
+      // Skip recursive analysis to prevent infinite loops
+      if (t.isIdentifier(arrayNode.object)) {
+        arrayVar = arrayNode.object.name;
+        // Simple case: just get the base variable name
+        const binding = callExprParent.scope.getBinding(arrayVar);
+        if (binding && binding.path.isVariableDeclarator()) {
+          const init = binding.path.get("init");
+          if (init.isCallExpression()) {
+            // This is likely an imported array, mark as not editable for now
+            isEditable = false;
+          }
+        }
       }
     }
 
