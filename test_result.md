@@ -324,13 +324,15 @@ metadata:
 
 test_plan:
   current_focus:
-    - "Landing page with hero search"
-    - "How It Works page navigation"
-    - "Listings page with filters and skeleton loaders"
-    - "Listing detail page with all sections"
-    - "Add listing multi-step form"
-    - "Favorites page with localStorage"
-    - "Mobile responsiveness"
+    - "Auth flow: Register → Role Selection → Dashboard"
+    - "Owner Profile creation and update"
+    - "Add Listing with Google Maps (lat/lng/link auto-generation)"
+    - "Listings display for customers (owner listings visible)"
+    - "Listing Detail page with reviews"
+    - "Review submission with authentication"
+    - "Google Maps navigation button"
+    - "Role-based access control"
+    - "JWT token authentication on all protected routes"
   stuck_tasks: []
   test_all: true
   test_priority: "high_first"
