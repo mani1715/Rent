@@ -1,13 +1,16 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Search, Heart, Home, Menu, X } from 'lucide-react';
+import { Search, Heart, Home, Menu, X, User, LogOut, LayoutDashboard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const Navbar = () => {
   const navigate = useNavigate();
+  const { user, isAuthenticated, isOwner, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -53,17 +56,86 @@ export const Navbar = () => {
                 Browse
               </Button>
             </Link>
-            <Link to="/favorites" data-testid="navbar-favorites-link">
-              <Button variant="ghost" style={{ color: '#1F2937' }}>
-                <Heart className="h-5 w-5 mr-2" />
-                Favorites
-              </Button>
-            </Link>
-            <Link to="/add-listing" data-testid="navbar-add-listing-link">
-              <Button style={{ backgroundColor: '#2563EB', color: 'white' }}>
-                List Property
-              </Button>
-            </Link>
+            
+            {isAuthenticated && (
+              <Link to="/favorites" data-testid="navbar-favorites-link">
+                <Button variant="ghost" style={{ color: '#1F2937' }}>
+                  <Heart className="h-5 w-5 mr-2" />
+                  Favorites
+                </Button>
+              </Link>
+            )}
+
+            {isOwner && (
+              <>
+                <Link to="/owner/dashboard" data-testid="navbar-dashboard-link">
+                  <Button variant="ghost" style={{ color: '#1F2937' }}>
+                    <LayoutDashboard className="h-5 w-5 mr-2" />
+                    Dashboard
+                  </Button>
+                </Link>
+                <Link to="/owner/add-listing" data-testid="navbar-add-listing-link">
+                  <Button style={{ backgroundColor: '#2563EB', color: 'white' }}>
+                    List Property
+                  </Button>
+                </Link>
+              </>
+            )}
+
+            {!isAuthenticated ? (
+              <div className="flex items-center space-x-2">
+                <Link to="/login">
+                  <Button variant="ghost" style={{ color: '#1F2937' }}>
+                    Login
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button style={{ backgroundColor: '#2563EB', color: 'white' }}>
+                    Sign Up
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="relative">
+                <button
+                  onClick={() => setUserMenuOpen(!userMenuOpen)}
+                  className="flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-gray-100"
+                >
+                  <User className="h-5 w-5" />
+                  <span className="text-sm font-medium">{user?.name}</span>
+                </button>
+                
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
+                    <div className="px-4 py-2 border-b border-gray-200">
+                      <p className="text-sm font-medium text-gray-900">{user?.name}</p>
+                      <p className="text-xs text-gray-500">{user?.email}</p>
+                      <p className="text-xs text-blue-600 mt-1">{user?.role}</p>
+                    </div>
+                    {isOwner && (
+                      <Link
+                        to="/owner/dashboard"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        onClick={() => setUserMenuOpen(false)}
+                      >
+                        Dashboard
+                      </Link>
+                    )}
+                    <button
+                      onClick={() => {
+                        logout();
+                        setUserMenuOpen(false);
+                        navigate('/');
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                    >
+                      <LogOut className="h-4 w-4 inline mr-2" />
+                      Logout
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
 
           <button
