@@ -103,21 +103,24 @@
 #====================================================================================================
 
 user_problem_statement: |
-  Build a complete, production-style frontend for a rental marketplace focused on rooms, houses, and lodges.
-  Stack: React, frontend-only, mock data.
+  Build a full-stack rental marketplace with authentication, roles, listings, ratings, and Google Maps navigation.
+  
+  STACK:
+  - Frontend: React
+  - Backend: Node.js + Express
+  - Database: MongoDB
+  - Auth: JWT
   
   REQUIRED FEATURES:
-  - Landing page with hero search
-  - How It Works page (3-step visual)
-  - Listings page with search + filters
-  - Listing cards with image, price, type, location, favorite button
-  - Listing detail page (carousel, owner profile, calendar, amenities, reviews, similar listings, map)
-  - Add listing multi-step form (Basic info, Rental type & duration, Photo upload, Preview)
-  - Favorites (localStorage)
-  - 10-15 mock listings
-  - Professional design with specific color palette (#1F2937, #2563EB, #10B981, #F9FAFB)
-  - No gradients, rounded cards, soft shadows
-  - Mobile-first, skeleton loaders
+  - Auth: Register, Login, JWT authentication
+  - Role selection after first login: OWNER or CUSTOMER (permanent)
+  - Models: User, OwnerProfile, Listing, Review
+  - Backend APIs: auth, user, owner, listings, reviews
+  - Owner features: Profile form, Add listing with Google Maps (lat/lng/link), Dashboard
+  - Customer features: View listings, Leave reviews/ratings
+  - Listing detail: Room details, Owner info, Ratings, Address, "Open in Google Maps" button
+  - Google Maps: Latitude/longitude fields, auto-generated link, external navigation
+  - Security: Login required, role-based access, JWT tokens
 
 frontend:
   - task: "How It Works page route integration"
