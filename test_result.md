@@ -232,17 +232,89 @@ frontend:
         comment: "Routes protected by authentication, role-based access (requireRole prop)"
 
 backend:
-  - task: "Basic API setup"
+  - task: "Auth APIs (Register & Login)"
     implemented: true
-    working: true
-    file: "backend/server.py"
+    working: "NA"
+    file: "backend/routes/auth.js"
     stuck_count: 0
-    priority: "low"
-    needs_retesting: false
+    priority: "high"
+    needs_retesting: true
     status_history:
-      - working: true
+      - working: "NA"
         agent: "main"
-        comment: "FastAPI with MongoDB connection. Only status check endpoints (not needed for frontend-only app)"
+        comment: "POST /api/auth/register and /api/auth/login with JWT token generation, password hashing"
+
+  - task: "User APIs (me & select-role)"
+    implemented: true
+    working: "NA"
+    file: "backend/routes/user.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "GET /api/user/me and POST /api/user/select-role with role validation"
+
+  - task: "Owner Profile APIs"
+    implemented: true
+    working: "NA"
+    file: "backend/routes/owner.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "POST/GET /api/owner/profile with owner-only access control"
+
+  - task: "Listings APIs (CRUD)"
+    implemented: true
+    working: "NA"
+    file: "backend/routes/listings.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "POST/GET/GET:id/PUT/DELETE /api/listings with owner verification, filters, Google Maps fields"
+
+  - task: "Reviews APIs"
+    implemented: true
+    working: "NA"
+    file: "backend/routes/reviews.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "POST /api/reviews with validation (no self-reviews, 1 per listing), GET reviews by listing"
+
+  - task: "JWT Authentication Middleware"
+    implemented: true
+    working: "NA"
+    file: "backend/middleware/auth.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "authMiddleware, requireRole, requireOwner, requireCustomer middlewares"
+
+  - task: "MongoDB Models"
+    implemented: true
+    working: "NA"
+    file: "backend/models/*.js"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: "User (with role), OwnerProfile, Listing (with Google Maps fields), Review models complete"
 
 metadata:
   created_by: "main_agent"
