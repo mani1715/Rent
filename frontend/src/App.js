@@ -18,8 +18,8 @@ function App() {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/listings" element={<ListingsPage />} />
-            <Route path="/listing/:id" element={<ListingDetailPage />} />
-            <Route path="/add-listing" element={<AddListingPage />} />
+            {/* <Route path="/listing/:id" element={<ListingDetailPage />} /> */}
+            {/* <Route path="/add-listing" element={<AddListingPage />} /> */}
             <Route path="/favorites" element={<FavoritesPage />} />
             <Route path="/how-it-works" element={<HowItWorksPage />} />
           </Routes>
