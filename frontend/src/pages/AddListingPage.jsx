@@ -7,11 +7,12 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Checkbox } from '@/components/ui/checkbox';
-import { ChevronRight, ChevronLeft, Check } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Check, Upload, X, Image as ImageIcon } from 'lucide-react';
 
 export default function AddListingPage() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
+  const [uploadedImages, setUploadedImages] = useState([]);
   const [formData, setFormData] = useState({
     title: '',
     type: '',
@@ -44,8 +45,23 @@ export default function AddListingPage() {
     }));
   };
 
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files || []);
+    const newImages = files.slice(0, 10 - uploadedImages.length).map(file => ({
+      id: Math.random().toString(36).substr(2, 9),
+      name: file.name,
+      url: URL.createObjectURL(file),
+      file
+    }));
+    setUploadedImages(prev => [...prev, ...newImages]);
+  };
+
+  const removeImage = (id) => {
+    setUploadedImages(prev => prev.filter(img => img.id !== id));
+  };
+
   const handleSubmit = () => {
-    console.log('Listing submitted:', formData);
+    console.log('Listing submitted:', formData, 'Images:', uploadedImages);
     alert('Listing created successfully! (Mock submission)');
     navigate('/listings');
   };
@@ -60,6 +76,8 @@ export default function AddListingPage() {
         return formData.bedrooms && formData.bathrooms && formData.size;
       case 4:
         return formData.description;
+      case 5:
+        return uploadedImages.length > 0;
       default:
         return false;
     }
