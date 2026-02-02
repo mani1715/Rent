@@ -50,7 +50,9 @@ export default function FavoritesPage() {
           </p>
         </div>
 
-        {favoriteListings.length === 0 ? (
+        {loading ? (
+          <SkeletonList count={6} />
+        ) : favoriteListings.length === 0 ? (
           <div className="text-center py-16" data-testid="no-favorites-message">
             <Heart className="h-16 w-16 mx-auto mb-4 text-gray-300" />
             <h2 className="text-2xl font-semibold mb-2" style={{ color: '#1F2937' }}>
