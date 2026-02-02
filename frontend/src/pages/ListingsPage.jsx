@@ -112,7 +112,9 @@ export default function ListingsPage() {
           </aside>
 
           <main className="flex-1">
-            {filteredListings.length === 0 ? (
+            {loading ? (
+              <SkeletonList count={9} />
+            ) : filteredListings.length === 0 ? (
               <div className="text-center py-12" data-testid="no-listings-message">
                 <p className="text-xl text-gray-600">No properties match your filters.</p>
                 <Button
