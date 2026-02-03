@@ -24,11 +24,12 @@ const AddListingPageNew = () => {
     images: []
   });
 
-  const propertyTypes = ['room', 'house', 'lodge', 'pg', 'hostel'];
+  const propertyTypes = ['room', 'house', 'lodge', 'pg', 'hostel', 'apartment', 'villa', 'cottage', 'farmhouse', 'studio'];
   const availableFacilities = [
     'WiFi', 'Parking', 'Kitchen', 'AC', 'Heating', 'Furnished',
     'Pet-Friendly', 'Garden', 'Balcony', 'Fireplace', 'Pool', 'Gym',
-    'Laundry', 'Security', 'Elevator'
+    'Laundry', 'Security', 'Elevator', 'TV', 'Washing Machine', 'Refrigerator',
+    'Microwave', 'Water Supply', 'Power Backup', 'CCTV'
   ];
 
   const handleChange = (e) => {
