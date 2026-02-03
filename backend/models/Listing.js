@@ -14,11 +14,24 @@ const listingSchema = new mongoose.Schema({
   type: {
     type: String,
     required: [true, 'Type is required'],
-    enum: ['room', 'house', 'lodge', 'pg', 'hostel']
+    enum: ['room', 'house', 'lodge', 'pg', 'hostel', 'apartment', 'villa', 'cottage', 'farmhouse', 'studio']
   },
   price: {
     type: Number,
     required: [true, 'Price is required'],
+    min: 0
+  },
+  priceType: {
+    type: String,
+    enum: ['daily', 'monthly', 'both'],
+    default: 'monthly'
+  },
+  dailyPrice: {
+    type: Number,
+    min: 0
+  },
+  monthlyPrice: {
+    type: Number,
     min: 0
   },
   squareFeet: {
