@@ -32,12 +32,16 @@ const userRoutes = require('./routes/user');
 const ownerRoutes = require('./routes/owner');
 const listingRoutes = require('./routes/listings');
 const reviewRoutes = require('./routes/reviews');
+const conversationRoutes = require('./routes/conversations');
+const messageRoutes = require('./routes/messages');
 
 app.use('/api/auth', authRoutes);
 app.use('/api/user', userRoutes);
 app.use('/api/owner', ownerRoutes);
 app.use('/api/listings', listingRoutes);
 app.use('/api/reviews', reviewRoutes);
+app.use('/api/conversations', conversationRoutes);
+app.use('/api/messages', messageRoutes);
 
 // Health check
 app.get('/api', (req, res) => {
