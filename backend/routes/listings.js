@@ -15,7 +15,7 @@ router.post(
     requireRole,
     requireOwner,
     body('title').trim().notEmpty().withMessage('Title is required'),
-    body('type').isIn(['room', 'house', 'lodge', 'pg', 'hostel']).withMessage('Type must be room, house, lodge, pg, or hostel'),
+    body('type').isIn(['room', 'house', 'lodge', 'pg', 'hostel', 'apartment', 'villa', 'cottage', 'farmhouse', 'studio']).withMessage('Invalid property type'),
     body('price').isNumeric().withMessage('Price must be a number'),
     body('squareFeet').isNumeric().withMessage('Square feet must be a number'),
     body('addressText').trim().notEmpty().withMessage('Address is required')
