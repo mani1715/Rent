@@ -25,7 +25,15 @@ const LoginPage = () => {
       if (result.requiresRoleSelection) {
         navigate('/select-role');
       } else {
-        navigate(from, { replace: true });
+        // User already has a role - redirect based on role
+        const userData = result.user;
+        if (userData.role === 'OWNER') {
+          navigate('/owner/dashboard');
+        } else if (userData.role === 'CUSTOMER') {
+          navigate('/listings');
+        } else {
+          navigate(from, { replace: true });
+        }
       }
     } else {
       setError(result.message);
