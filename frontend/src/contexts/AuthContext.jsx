@@ -83,7 +83,11 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem('token', token);
         setToken(token);
         setUser(user);
-        return { success: true, requiresRoleSelection: response.data.requiresRoleSelection };
+        return { 
+          success: true, 
+          requiresRoleSelection: response.data.requiresRoleSelection,
+          user: user 
+        };
       }
     } catch (error) {
       return {
