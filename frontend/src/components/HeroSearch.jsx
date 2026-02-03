@@ -4,14 +4,20 @@ import { Search, MapPin, Home, Building2, Mountain } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const HeroSearch = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState('');
 
   const handleSearch = (e) => {
     e.preventDefault();
+    if (!isAuthenticated) {
+      navigate('/login');
+      return;
+    }
     const params = new URLSearchParams();
     if (searchQuery) params.append('search', searchQuery);
     if (selectedType) params.append('type', selectedType);
@@ -62,6 +68,10 @@ export const HeroSearch = () => {
                 <button
                   key={type.value}
                   onClick={() => {
+                    if (!isAuthenticated) {
+                      navigate('/login');
+                      return;
+                    }
                     setSelectedType(type.value);
                     navigate(`/listings?type=${type.value}`);
                   }}
