@@ -27,14 +27,21 @@ function App() {
             <Navbar />
             <main className="flex-grow">
               <Routes>
-                {/* Public Routes */}
+                {/* Public Routes - Only Login/Register */}
                 <Route path="/" element={<LandingPage />} />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/register" element={<RegisterPage />} />
-                <Route path="/listings" element={<ListingsPage />} />
                 <Route path="/how-it-works" element={<HowItWorksPage />} />
                 
-                {/* Protected Routes */}
+                {/* Protected Routes - Require Login */}
+                <Route
+                  path="/listings"
+                  element={
+                    <ProtectedRoute>
+                      <ListingsPage />
+                    </ProtectedRoute>
+                  }
+                />
                 <Route
                   path="/select-role"
                   element={
