@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { Search, Heart, Home, Menu, X, User, LogOut, LayoutDashboard } from 'lucide-react';
+import { Search, Heart, Home, Menu, X, User, LogOut, LayoutDashboard, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
@@ -72,6 +72,12 @@ export const Navbar = () => {
                   <Button variant="ghost" style={{ color: '#1F2937' }}>
                     <LayoutDashboard className="h-5 w-5 mr-2" />
                     Dashboard
+                  </Button>
+                </Link>
+                <Link to="/owner/inbox" data-testid="navbar-inbox-link">
+                  <Button variant="ghost" style={{ color: '#1F2937' }}>
+                    <MessageCircle className="h-5 w-5 mr-2" />
+                    Messages
                   </Button>
                 </Link>
                 <Link to="/owner/add-listing" data-testid="navbar-add-listing-link">
