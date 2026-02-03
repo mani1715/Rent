@@ -135,7 +135,7 @@ const OwnerDashboard = () => {
         </div>
 
         {/* Quick Actions */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <Link
             to="/owner/add-listing"
             className={`flex items-center justify-center px-6 py-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition ${
@@ -150,6 +150,13 @@ const OwnerDashboard = () => {
             className="flex items-center justify-center px-6 py-4 bg-white text-gray-700 border-2 border-gray-300 rounded-lg hover:border-blue-500 transition"
           >
             {profile ? 'Edit Profile' : 'Complete Profile'}
+          </Link>
+          <Link
+            to="/owner/inbox"
+            className="flex items-center justify-center px-6 py-4 bg-white text-gray-700 border-2 border-gray-300 rounded-lg hover:border-blue-500 transition"
+          >
+            <MessageCircle className="mr-2" />
+            View Messages
           </Link>
         </div>
 
