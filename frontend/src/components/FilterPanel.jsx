@@ -60,33 +60,17 @@ export const FilterPanel = ({ filters, onFilterChange, onReset }) => {
             Property Type
           </Label>
           <div className="space-y-2">
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="type-room"
-                checked={filters.types.includes('room')}
-                onCheckedChange={() => handleTypeToggle('room')}
-                data-testid="type-filter-room"
-              />
-              <Label htmlFor="type-room" className="cursor-pointer">Room</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="type-house"
-                checked={filters.types.includes('house')}
-                onCheckedChange={() => handleTypeToggle('house')}
-                data-testid="type-filter-house"
-              />
-              <Label htmlFor="type-house" className="cursor-pointer">House</Label>
-            </div>
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="type-lodge"
-                checked={filters.types.includes('lodge')}
-                onCheckedChange={() => handleTypeToggle('lodge')}
-                data-testid="type-filter-lodge"
-              />
-              <Label htmlFor="type-lodge" className="cursor-pointer">Lodge</Label>
-            </div>
+            {['room', 'house', 'lodge', 'pg', 'hostel', 'apartment', 'villa', 'cottage', 'farmhouse', 'studio'].map(type => (
+              <div key={type} className="flex items-center space-x-2">
+                <Checkbox
+                  id={`type-${type}`}
+                  checked={filters.types.includes(type)}
+                  onCheckedChange={() => handleTypeToggle(type)}
+                  data-testid={`type-filter-${type}`}
+                />
+                <Label htmlFor={`type-${type}`} className="cursor-pointer capitalize">{type}</Label>
+              </div>
+            ))}
           </div>
         </div>
 
