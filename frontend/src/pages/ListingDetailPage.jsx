@@ -11,6 +11,8 @@ import {
   Share2, Navigation, Star, User, Phone 
 } from 'lucide-react';
 import { addFavorite, removeFavorite, isFavorite } from '@/utils/localStorage';
+import ChatButton from '@/components/ChatButton';
+import ChatModal from '@/components/ChatModal';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:8001';
 
